@@ -6,7 +6,7 @@ module ViteRb
     class << self
       attr_accessor :manifest_hash
 
-      def reload_manifest(manifest_file = ViteRb
+      def reload_manifest(manifest_file = ViteRb.config.manifest_file)
         @manifest_hash = load_manifest(manifest_file)
       end
 
@@ -25,7 +25,7 @@ module ViteRb
       private
 
       # rubocop:disable Naming/MemoizedInstanceVariableName
-      def load_manifest(manifest_file = ViteRb
+      def load_manifest(manifest_file = ViteRb.config.manifest_file)
         @manifest_hash ||= JSON.parse(File.read(manifest_file), symbolize_names: true)
       end
       # rubocop:enable Naming/MemoizedInstanceVariableName

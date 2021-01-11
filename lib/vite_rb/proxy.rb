@@ -2,7 +2,7 @@
 
 require "rack/proxy"
 require "socket"
-require "vite/utils"
+require "vite_rb/utils"
 
 module ViteRb
   # Proxy server for Vite
