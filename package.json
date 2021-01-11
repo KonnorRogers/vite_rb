@@ -1,6 +1,6 @@
 {
   "name": "vite_rb",
-  "version": "0.0.4-alpha1",
+  "version": "0.0.1-alpha1",
   "description": "An npm package for integration with ViteRb",
   "repository": "git@github.com:ParamagicDev/vite_rb.git",
   "author": "paramagicdev <konnor5456@gmail.com>",
@@ -8,9 +8,7 @@
   "source": "package/src/index.js",
   "main": "package/dist/viteRb.js",
   "module": "package/dist/viteRb.module.js",
-  "files": [
-    "package/dist"
-  ],
+  "files": [],
   "scripts": {
     "dev": "yarn build --watch",
     "deploy": "yarn version"

@@ -1,10 +1,13 @@
-module ViteRb
+# frozen_string_literal: true
+
+module ViteR
+  # Sets the appropriately prefixed ENV variables with VITE_RB
   class Env
-    ENV_PREFIX = "VITE".freeze
+    ENV_PREFIX = 'VITE_RB'
 
     class << self
-      def set_env_variables(config = ViteRb
-        config.instance_variables.each do |var|
+      def create_env_variables(config = ViteRb.config)
+        instance_variables.each do |var|
           value = config.instance_variable_get(var)
 
           # .slice removes the "@" from beginning of string

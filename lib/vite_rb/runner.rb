@@ -12,7 +12,7 @@ module ViteRb
     attr_reader :config_file
 
     def initialize
-      Env.set_env_variables
+      Env.create_env_variables
     rescue Errno::ENOENT, NoMethodError
       $stdout.puts "Vite configuration not found in #{ViteRb.config.config_dir}"
       $stdout.puts "Please run bundle exec rails generate vite_rb to install Vite"
