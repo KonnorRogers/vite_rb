@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RailsWithoutWebpack</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= javascript_snow_tag "application" %>
+    <%= snowpacker_hmr_tag %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "vite_rb",
+  "version": "0.0.4-alpha1",
+  "description": "An npm package for integration with ViteRb",
+  "repository": "git@github.com:ParamagicDev/vite_rb.git",
+  "author": "paramagicdev <konnor5456@gmail.com>",
+  "license": "MIT",
+  "source": "package/src/index.js",
+  "main": "package/dist/viteRb.js",
+  "module": "package/dist/viteRb.module.js",
+  "files": [
+    "package/dist"
+  ],
+  "scripts": {
+    "dev": "yarn build --watch",
+    "deploy": "yarn version"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "postcss": "^8.1.1",
+    "postcss-cli": "^8.0.0",
+    "postcss-flexbugs-fixes": "^4.2.1",
+    "postcss-import": "^12.0.1",
+    "postcss-preset-env": "^6.7.0",
+    "vite": "^2.0.0-beta.21"
+  }
+}
