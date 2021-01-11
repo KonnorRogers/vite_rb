@@ -8,6 +8,7 @@ require "vite_rb/proxy"
 require "vite_rb/utils"
 require "vite_rb/manifest"
 
+# ViteRb is the top-level module for interacting with the Vite ESM bundler.
 module ViteRb
   class << self
     attr_accessor :config

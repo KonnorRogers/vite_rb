@@ -1,5 +1,3 @@
-# require 'snowpacker/defaults'
-
 module ViteRb
   class Configuration
     attr_accessor :config_path

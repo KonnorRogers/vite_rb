@@ -2,8 +2,8 @@ module ViteRb
   module Utils
     class << self
       def detect_port!
-        hostname = ViteRb
-        port = ViteRb
+        hostname = ViteRb.config.hostname
+        port = ViteRb.config.port
         server = TCPServer.new(hostname, port)
         server.close
       rescue Errno::EADDRINUSE
@@ -16,14 +16,14 @@ module ViteRb
       end
 
       def https?
-        return true if ENV["SNOWPACKER_HTTPS"] == "true"
+        return true if ENV["VITE_RB_HTTPS"] == "true"
 
         false
       end
 
       def dev_server_running?
-        host = ViteRb
-        port = ViteRb
+        host = ViteRb.config.hostname
+        port = ViteRb.config.port
         connect_timeout = 0.01
 
         Socket.tcp(host, port, connect_timeout: connect_timeout).close
@@ -33,22 +33,22 @@ module ViteRb
       end
 
       def host_with_port
-        hostname = ViteRb
-        port = ViteRb
+        hostname = ViteRb.config.port
+        port = ViteRb.config.hostname
         "#{hostname}:#{port}"
       end
 
       private
 
       def print_port_in_use(port)
-        error_message = "\nUnable to start snowpacker dev server\n\n"
+        error_message = "\nUnable to start vite dev server\n\n"
         info_message = <<~INFO
           Another program is currently running on port: #{port}
           Please use a different port.
 
         INFO
-        say error_message, :yellow
-        say info_message, :magenta
+        put error_message, :magenta
+        put info_message, :yellow
       end
     end
   end

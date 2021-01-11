@@ -1,5 +1,5 @@
 require "thor"
-require "snowpacker/utils"
+require "vite_rb/utils"
 
 module ViteRb
   class Generator < Thor::Group
@@ -17,7 +17,7 @@ module ViteRb
     end
 
     def create_initializer_file
-      target = "vite_rb.rb"
+      target = "vite.rb"
       source = "#{target}.tt"
 
       destination = File.join("config", "initializers", target)
@@ -26,16 +26,16 @@ module ViteRb
         destination = Rails.root.join("config", "initializers", target)
       end
 
-      # Creates a config/initializers/snowpacker.rb file
+      # Creates a config/initializers/vite.rb file
       say "\n\nCreating initializer file at #{destination}...\n\n", :magenta
       template source, destination
     end
 
     def create_config_files
-      destination = File.join("config", "snowpacker")
+      destination = File.join("config", "vite")
 
       if Utils.rails?
-        destination = Rails.root.join("config", "snowpacker")
+        destination = Rails.root.join("config", "vite")
       end
 
       Rake.mkdir_p destination
@@ -46,32 +46,32 @@ module ViteRb
       end
     end
 
-    def create_snowpacker_files
-      destination = File.join("app", "snowpacker")
+    def create_vite_files
+      destination = File.join("app", "vite")
 
       if Utils.rails?
-        destination = Rails.root.join("app", "snowpacker")
+        destination = Rails.root.join("app", "vite")
       end
-      say "\n\nCreating snowpacker files...\n\n", :magenta
+      say "\n\nCreating vite files...\n\n", :magenta
 
-      directory "snowpacker", destination
+      directory "vite", destination
     end
 
     def init
       create_initializer_file
       create_config_files
-      create_snowpacker_files
-      add_snowpacker
+      create_vite_files
+      add_vite
 
-      say "Finished initializing snowpacker", :green
+      say "Finished initializing vite", :green
     end
 
-    def add_snowpacker
-      if ENV["SNOWPACKER_TEST"] == "true"
-        return system("yarn add rails-snowpacker file:../../")
+    def add_vite
+      if ENV["VITE_RB_TEST"] == "true"
+        return system("yarn add vite_rb file:../../")
       end
 
-      system("yarn add rails-snowpacker")
+      system("yarn add vite_rb")
     end
 
     def self.init

@@ -20,17 +20,19 @@ your Rails / Ruby application. It is inspired by gems such as
 [breakfast](https://github.com/devlocker/breakfast) /
 [webpacker](https://github.com/rails/webpacker) and this project started
 as a fork of
-[Vite](https://github.com/ParamgicDev/snowpacker).
+[Vite](https://github.com/ParamagicDev/vite_rb).
 
-This is not meant to be a 1:1 replacement of Webpacker. Vite is
-actually just a wrapper around Snowpack using Rake and as a result can
-be used without Rails with a little extra work.
+This is not meant to be a 1:1 replacement of Webpacker. ViteRb is
+actually just a wrapper around Vite using Rake / Thor and as a result can
+be used with any Rack based framework. Vite comes with first class
+support for Rails including Generators and autoloaded helpers.
 
 ## How is Vite different?
 
 Vite is unbundled during development to eliminate compilation
-times and then is bundled in the final build process due to waterfall
-network requests that still cause some issues in production.
+times. Asset requests are cached with 304 headers. Bundling is saved for the final build process due to waterfall
+network requests that still cause some issues in production and can
+cause significant slowdown.
 
 Vite uses the native ESM module spec. ESM Modules are fast,
 lightweight, and natively supported by all newer browsers ("evergreen browsers")
@@ -44,24 +46,24 @@ For more reading on ESM modules, check out this link:
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'vite_rb', '~> 0.0.4.alpha1'
+gem 'vite_rb', git: "https://github.com/ParamagicDev/vite_rb"
 ```
 
 ### With Rails
 
 ```bash
-rails vite_rb:init
+rails vite:init
 ```
 
-Which will install your yarn packages, create an initializer file, add config files, and create an `app/vite_rb` directory similar to Webpacker.
+Which will install your yarn packages, create an initializer file, add config files, and create an `app/vite` directory similar to Webpacker.
 
 #### Tasks
 
 ```bash
-rails vite_rb:dev # starts a dev server
-rails vite_rb:build # builds for production (is hooked onto
+rails vite:dev # starts a dev server
+rails vite:build # builds for production (is hooked onto
 precompile)
-rails assets:precompile # will build vite_rb and asset pipeline
+rails assets:precompile # will build vite and the asset pipeline
 ```
 
 #### Existing Rails app
@@ -79,7 +81,7 @@ following javascript file:
 - require("@rails/activestorage").start()
 - require("channels")
 -
-+ // Vite
++ // app/vite/entrypoints/applications.js
 + import "@rails/ujs" // Autostarts
 + import Turbolinks from "turbolinks"
 + import ActiveStorage from "@rails/activestorage"
@@ -90,8 +92,8 @@ following javascript file:
 ```
 
 You may notice a `require.context` statement in your javascript to load
-`channels`. This runs via Node and is not browser compatible. To get
-around this Vite installs a package called [import-all.macro](https://github.com/kentcdodds/import-all.macro) to allow you to import an entire directory of files.
+`channels`. This runs via Node and is not browser compatible. Vite comes
+with a glob import syntax, you can read about it here: @TODO
 
 ```diff
 // app/javascript/channels/index.js
@@ -99,10 +101,9 @@ around this Vite installs a package called [import-all.macro](https://github.com
 // Load all the channels within this directory and all subdirectories.
 // Channel files must be named *_channel.js.
 
-- // const channels = require.context('.', true, /_channel\.js$/)
-- // channels.keys().forEach(channels)
+- const channels = require.context('.', true, /_channel\.js$/)
+- channels.keys().forEach(channels)
 // @TODO
-+ import.all("**/*_channel.js")
 ```
 
 ## File Structure
@@ -111,9 +112,9 @@ Vite makes some assumptions about your file paths to provide
 helper methods.
 
 ```bash
-tree -L 2 app/vite_rb
+tree -L 2 app/vite
 
-app/vite_rb/
+app/vite/
 ├── assets/
 │   └── picture.png
 ├── channels/
@@ -132,13 +133,12 @@ Which upon build will output to look like this:
 ```bash
 tree -L 1 public/Vites
 
-public/Vites/
+public/vite/
 ├── assets/
 ├── channels/
 ├── entrypoints/
 ├── javascript/
 ├── css/
-
 ```
 
 ## Helpers
@@ -182,7 +182,8 @@ changing it to support HMR.
 
 ### HMR
 
-To enable HMR in the `<head>` of your document simply put:
+To enable HMR for your vite assets, put the following in the `<head>` of
+your document:
 
 `<%= vite_hmr_tag %>`
 
@@ -197,7 +198,7 @@ directory.
 
 ## Production
 
-Gem hooks up to the `rails assets:precompile` and `rails
+ViteRb hooks up to the `rails assets:precompile` and `rails
 assets:clobber`, so no special setup is required.
 
 You can start vite_rb's compilation process manually by running

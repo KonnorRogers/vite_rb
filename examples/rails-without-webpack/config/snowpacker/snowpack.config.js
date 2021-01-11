@@ -1,6 +1,6 @@
 const path = require("path")
 
-const prefix = "SNOWPACKER"
+const prefix = "VITE_RB"
 
 // Build related items
 const MOUNT_PATH = process.env[`${prefix}_MOUNT_PATH`]
@@ -9,7 +9,6 @@ const BUILD_DIR = process.env[`${prefix}_BUILD_DIR`]
 const ENTRYPOINTS_DIR = process.env[`${prefix}_ENTRYPOINTS_DIR`]
 
 // Config files
-const BABEL_CONFIG = process.env[`${prefix}_BABEL_CONFIG_FILE`]
 const POSTCSS_CONFIG = process.env[`${prefix}_POSTCSS_CONFIG_FILE`]
 
 // Dev server stuff
@@ -50,21 +49,6 @@ const plugins = [
       "output": [".css"]
     }
   ],
-  [
-    "@snowpack/plugin-build-script",
-    {
-      "cmd": `babel --config-file ${BABEL_CONFIG} --filename $FILE`,
-      "watch": "$1 --watch",
-      "input": [".js"],
-      "output": [".js"]
-    }
-  ],
-  // [
-  //   "snowpack-plugin-rollup-bundle",
-  //   {
-  //     entrypoints: `${BUILD_DIR}/${OUTPUT_DIR}/${ENTRYPOINTS_DIR}/**/*.js`,
-  //   }
-  // ]
 ]
 
 module.exports = {

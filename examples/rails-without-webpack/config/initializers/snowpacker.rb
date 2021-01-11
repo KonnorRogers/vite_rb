@@ -1,38 +1,35 @@
 Rails.application.config.middleware.insert_before 0, ViteRb
 
-ViteRb
+ViteRb.configure do |vite|
   # Where to build snowpack to (out dir)
-  snowpacker.build_dir = "public"
+  vite.build_dir = "public"
 
-  # url to use for assets IE: /snowpacker/xyz.css, gets built to public/frontend
-  snowpacker.output_dir = "snowpacker"
+  # url to use for assets IE: /vite/xyz.css, gets built to public/frontend
+  vite.output_dir = "vite"
 
   # Where to find the config directory
-  snowpacker.config_path = Rails.root.join("config", "snowpacker")
-  snowpacker.mount_path = Rails.root.join("app", "snowpacker")
-  snowpacker.manifest_file = Rails.root.join(snowpacker.build_dir, snowpacker.output_dir, "manifest.json")
+  vite.config_path = Rails.root.join("config", "vite")
+  vite.mount_path = Rails.root.join("app", "vite")
+  vite.manifest_file = Rails.root.join(vite.build_dir, vite.output_dir, "manifest.json")
 
   # Where to find the snowpack config file
-  snowpacker.config_file = File.join(snowpacker.config_path, "snowpack.config.js")
-
-  # Where to find the babel config file
-  snowpacker.babel_config_file = File.join(snowpacker.config_path, "babel.config.js")
+  vite.config_file = File.join(vite.config_path, "vite.config.js")
 
   # Where to find the postcss config file
-  snowpacker.postcss_config_file = File.join(snowpacker.config_path, "postcss.config.js")
+  vite.postcss_config_file = File.join(vite.config_path, "postcss.config.js")
 
   # Where to find your snowpack files
-  snowpacker.entrypoints_dir = "entrypoints"
+  vite.entrypoints_dir = "entrypoints"
 
-  # What port to run snowpacker with
-  snowpacker.port = "4035"
+  # What port to run vite with
+  vite.port = "4035"
 
   # What hostname to use
-  snowpacker.hostname = "localhost"
+  vite.hostname = "localhost"
 
   # Whether or not to use https
   # https://www.snowpack.dev/#https%2Fhttp2
-  snowpacker.https = false
+  vite.https = false
 end
 
 ActiveSupport.on_load :action_controller do

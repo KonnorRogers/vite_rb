@@ -2,10 +2,10 @@
 
 require "rack/proxy"
 require "socket"
-require "snowpacker/utils"
+require "vite/utils"
 
 module ViteRb
-  # Proxy server for snowpacker
+  # Proxy server for Vite
   class Proxy < Rack::Proxy
     def initialize(app = nil, opts = {})
       opts[:streaming] = false if Rails.env.test? && !opts.key?(:streaming)
@@ -13,7 +13,7 @@ module ViteRb
     end
 
     def perform_request(env)
-      output_dir = %r{/#{ViteRb
+      output_dir = %r{/#{ViteRb.config.output_dir}/}
 
       if env["PATH_INFO"].start_with?(output_dir) && Utils.dev_server_running?
         env["HTTP_HOST"] = env["HTTP_X_FORWARDED_HOST"] = ViteRb
