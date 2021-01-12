@@ -3,6 +3,7 @@ require "json"
 module ViteRb
   module Manifest
     VALID_TYPES = [:js, :"js.map", :css, :"css.map"]
+
     class << self
       attr_accessor :manifest_hash
 
@@ -31,9 +32,7 @@ module ViteRb
       # rubocop:enable Naming/MemoizedInstanceVariableName
 
       def valid_type?(type)
-        return true if VALID_TYPES.include?(type)
-
-        false
+        VALID_TYPES.include?(type)
       end
     end
   end

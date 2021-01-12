@@ -1,14 +1,15 @@
 module ViteRb
   class Configuration
-    attr_accessor :config_path
-    attr_accessor :config_file
-    attr_accessor :babel_config_file
-    attr_accessor :postcss_config_file
-    attr_accessor :build_dir
-    attr_accessor :mount_path
-    attr_accessor :manifest_file
-    attr_accessor :output_dir
-    attr_accessor :port, :hostname
+    attr_accessor :config_path,
+                  :config_file,
+                  :babel_config_file,
+                  :postcss_config_file,
+                  :build_dir,
+                  :mount_path,
+                  :manifest_file,
+                  :output_dir,
+                  :port,
+                  :hostname
 
     def initialize
       yield(self) if block_given?

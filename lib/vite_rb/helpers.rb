@@ -4,7 +4,7 @@ module ViteRb
   module Helpers
     # Injects an HMR tag during development via a websocket.
     def vite_hmr_tag
-      return unless Rails.env == "development"
+      return unless Rails.env.development?
 
       hostname = ViteRb
       port = ViteRb
@@ -34,7 +34,7 @@ module ViteRb
     # Returns nothing when not in production. CSS only gets extracted
     # during the final build.
     def stylesheet_vite_tag(name, **options)
-      return unless Rails.env == "development"
+      return unless Rails.env.development?
 
       options[:media] ||= "screen"
       stylesheet_link_tag("/#{vite_dir}/#{name}", options)

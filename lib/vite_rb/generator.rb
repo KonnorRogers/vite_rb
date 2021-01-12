@@ -10,7 +10,7 @@ module ViteRb
     CONFIG_FILES = %w[
       vite.config.js
       postcss.config.js
-    ]
+    ].freeze
 
     def self.source_root
       TEMPLATES
@@ -20,10 +20,10 @@ module ViteRb
       target = "vite.rb"
       source = "#{target}.tt"
 
-      destination = File.join("config", "initializers", target)
+      destination = File.join("config/initializers", target)
 
       if Utils.rails?
-        destination = Rails.root.join("config", "initializers", target)
+        destination = Rails.root.join("config/initializers", target)
       end
 
       # Creates a config/initializers/vite.rb file
@@ -32,10 +32,10 @@ module ViteRb
     end
 
     def create_config_files
-      destination = File.join("config", "vite")
+      destination = File.join("config/vite")
 
       if Utils.rails?
-        destination = Rails.root.join("config", "vite")
+        destination = Rails.root.join("config/vite")
       end
 
       Rake.mkdir_p destination
@@ -47,10 +47,10 @@ module ViteRb
     end
 
     def create_vite_files
-      destination = File.join("app", "vite")
+      destination = File.join("app/vite")
 
       if Utils.rails?
-        destination = Rails.root.join("app", "vite")
+        destination = Rails.root.join("app/vite")
       end
       say "\n\nCreating vite files...\n\n", :magenta
 

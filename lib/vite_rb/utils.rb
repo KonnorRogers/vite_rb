@@ -12,13 +12,11 @@ module ViteRb
       end
 
       def rails?
-        return true if defined?(Rails)
+        defined?(Rails)
       end
 
       def https?
-        return true if ENV["VITE_RB_HTTPS"] == "true"
-
-        false
+        ENV["VITE_RB_HTTPS"] == "true"
       end
 
       def dev_server_running?
