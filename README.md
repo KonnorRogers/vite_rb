@@ -241,18 +241,13 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Roadmap
 
-- [ ] Add default file structure with init
-
+- [x] Add default file structure with init
 - [x] Support require.context (Glob importing supported by Vite)
-
+- [x] Parity with Webpacker helper methods
+- [x] Create an npm package to pin Vite versions
+- [ ] Fix current testing
 - [ ] Reading from production manifest
-
-- [ ] Parity with Webpacker helper methods
-
+- [ ] Flesh out documentation
 - [ ] Add documentation / installation on Stimulus
-
-- [ ] Create an npm package to read a default config from and pin Vite versions
-
 - [ ] Add in End-to-end testing to confirm everything works as intended.
 
-- [ ] Make the config environment from NPM in Typescript so users can import types for good completion.

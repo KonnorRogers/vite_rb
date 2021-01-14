@@ -1,26 +1,29 @@
-import { path } from "path"
+// import { path } from "path"
+import process from "process"
 
 const PREFIX = "VITE_RB"
 
-// All options are stored as process.env[`VITE_RB_${option}`]
-// Can be accessed via: options.OPTION_NAME
+// // All options are stored as process.env[`VITE_RB_${option}`]
+// // Can be accessed via: options.OPTION_NAME
 const options = {}
 
-[
-  "ROOT_DIR",
-  "BUILD_DIR",
-  "ENTRYPOINTS_DIR",
-  "BASE_URL",
+const envVars = [
+  "ROOT",
   "OUT_DIR",
+  "ENTRYPOINTS_DIR",
+  "BASE",
   "ASSETS_DIR",
   "HOST",
   "HTTPS",
   "PORT",
-  "POSTCSS_CONFIG_PATH",
   "MANIFEST"
-].forEach((option) => {
-  options[option] = process.env[`${PREFIX}_${option}`
+]
+
+envVars.forEach((option) => {
+  options[option] = process.env[`${PREFIX}_${option}`]
 })
+
+console.warn(options)
 
 /**
  * type {import('vite').UserConfig}
@@ -28,7 +31,7 @@ const options = {}
 export default {
   // Project root directory
   // https://vitejs.dev/config/#root
-  root: options.ROOT_DIR,
+  root: options.ROOT,
 
   // https://vitejs.dev/config/#mode
   // mode: "",
@@ -76,7 +79,7 @@ export default {
   // https://vitejs.dev/config/#server-options
   server: {
     host: options.HOST,
-    port: options.PORT,
+    port: parseInt(options.PORT, 10),
     strictPort: true,
     https: options.HTTPS,
     open: false,
@@ -89,20 +92,21 @@ export default {
 
   // https://vitejs.dev/config/#build-options
   build: {
-    base: options.BASE_URL,
+    base: options.BASE,
     outDir: options.OUT_DIR,
-    manifest: options.MANIFEST,
+    manifest: Boolean(options.MANIFEST),
     sourceMap: "true",
     target: "modules",
     assetsInlineLimit: 4096,
     cssCodeSplit: true,
     rollupOptions: {
-      input: './app/javascript/application.js'
+      input: './app/vite/application.js'
     },
     minify: "terser",
     write: true,
     emptyOutDir: true,
 
+    // polyfillDynamicImport: true,
     // terserOptions: {},
     // cleanCssOptions: {},
     // commonjsOptions: {},
@@ -115,5 +119,5 @@ export default {
   //   exclude: [],
   //   plugins: [],
   //   auto: true
-  // }
+ // }
 }

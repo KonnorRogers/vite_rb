@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 module ViteRb
+  # Utilities for working with ViteRb
   module Utils
     class << self
       def detect_port!
-        hostname = ViteRb.config.hostname
-        port = ViteRb.config.port
-        server = TCPServer.new(hostname, port)
+        server = TCPServer.new(host, port)
         server.close
       rescue Errno::EADDRINUSE
-        print_port_in_use(port)
+        print_port_in_use(host_with_port)
         exit!
       end
 
@@ -21,9 +20,15 @@ module ViteRb
         ENV['VITE_RB_HTTPS'] == 'true'
       end
 
+      def host
+        ViteRb.config.host
+      end
+
+      def port
+        ViteRb.config.port
+      end
+
       def dev_server_running?
-        host = ViteRb.config.hostname
-        port = ViteRb.config.port
         connect_timeout = 0.01
 
         Socket.tcp(host, port, connect_timeout: connect_timeout).close
@@ -33,9 +38,7 @@ module ViteRb
       end
 
       def host_with_port
-        hostname = ViteRb.config.port
-        port = ViteRb.config.hostname
-        "#{hostname}:#{port}"
+        "#{host}:#{port}"
       end
 
       private
@@ -43,12 +46,12 @@ module ViteRb
       def print_port_in_use(port)
         error_message = "\nUnable to start vite dev server\n\n"
         info_message = <<~INFO
-          Another program is currently running on port: #{port}
+          Another program is currently at this location: #{port}
           Please use a different port.
-
         INFO
-        put error_message, :magenta
-        put info_message, :yellow
+
+        say error_message, :magenta
+        say info_message, :yellow
       end
     end
   end

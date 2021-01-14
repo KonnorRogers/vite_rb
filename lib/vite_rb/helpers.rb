@@ -33,18 +33,16 @@ module ViteRb
       asset_path(path, options)
     end
 
-    if Utils.rails?
-      def javascript_vite_tag(name, options = {})
-        options[:type] ||= 'module'
-        javascript_include_tag(vite_entrypoint_file(name), options)
-      end
+    def javascript_vite_tag(name, options = {})
+      options[:type] ||= 'module'
+      javascript_include_tag(vite_entrypoint_file(name), options)
+    end
 
-      # Returns nothing when not in production. CSS only gets extracted
-      # during the final build.
-      def stylesheet_vite_tag(name, options = {})
-        options[:media] ||= 'screen'
-        stylesheet_link_tag("/#{out_dir}/#{name}", options)
-      end
+    # Returns nothing when not in production. CSS only gets extracted
+    # during the final build.
+    def stylesheet_vite_tag(name, options = {})
+      options[:media] ||= 'screen'
+      stylesheet_link_tag("/#{out_dir}/#{name}", options)
     end
 
     private

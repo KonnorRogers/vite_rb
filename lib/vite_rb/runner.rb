@@ -14,9 +14,10 @@ module ViteRb
     def initialize
       super
       Env.create_env_variables
+      p ViteRb.config.options
     rescue Errno::ENOENT, NoMethodError
-      $stdout.puts "Vite configuration not found in #{ViteRb.config.config_dir}"
-      $stdout.puts 'Please run bundle exec rails generate vite_rb to install Vite'
+      $stdout.puts "Vite configuration not found at #{ViteRb.config.config_path}"
+      $stdout.puts 'Please run bundle exec rails vite:init to install Vite'
       exit!
     end
 
@@ -37,9 +38,8 @@ module ViteRb
       private
 
       def vite_rb_command(env: '', cmd: '')
-        env = ENV['NODE_ENV'] || env
-        config_file = ViteRb
-        command = "NODE_ENV=#{env} yarn run vite #{cmd} --config #{config_file}"
+        env ||= ENV['NODE_ENV']
+        command = "NODE_ENV=#{env} yarn run vite #{cmd} --config ./#{ViteRb.config.config_file}"
         Rake.sh(command)
       end
     end

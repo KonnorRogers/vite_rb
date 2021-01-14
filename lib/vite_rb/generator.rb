@@ -21,7 +21,7 @@ module ViteRb
     def create_initializer_file
       source = 'vite_rb.rb'
 
-      destination = find_destination('config/initializers')
+      destination = find_destination("config/initializers/#{source}")
 
       # Creates a config/initializers/vite_rb.rb file
       say "\n\nCreating initializer file at #{destination}...\n\n", :magenta
