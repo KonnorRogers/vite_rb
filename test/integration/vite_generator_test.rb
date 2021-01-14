@@ -19,20 +19,11 @@ class ViteRbGeneratorTest < Minitest::Test
 
     context = instance_eval("binding", __FILE__, __LINE__)
 
-    file = File.binread(File.join(TEMPLATE_DIR, "vite.rb.tt"))
+    file = File.binread(File.join(TEMPLATE_DIR, "vite_rb.rb"))
     trim_mode = "-"
     eoutvar = "@output_buffer"
 
-    vite_file = nil
-
-    # Account for ERB argument deprecation from 2.5 -> 2.6
-    # https://bugs.ruby-lang.org/issues/14256
-
-    vite_file = if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("2.6.0")
-      ERB.new(file, trim_mode: trim_mode, eoutvar: eoutvar)
-    else
-      ERB.new(file, trim_mode: trim_mode, eoutvar: eoutvar)
-    end
+    vite_file = ERB.new(file, trim_mode: trim_mode, eoutvar: eoutvar)
 
     vite_file = vite_file.result(context)
     assert_equal File.read(RAILS_VITE_INITIALIZER), vite_file

@@ -13,7 +13,7 @@ FIXTURE_DIR = File.join(TEST_DIR, "fixtures")
 RUBY_TEST_APP = File.join(TEST_DIR, "ruby_test_app")
 RAILS_TEST_APP = File.join(TEST_DIR, "rails_test_app")
 
-RAILS_VITE_RB_INITIALIZER = File.join(RAILS_TEST_APP, "config", "initializers", "vite.rb")
+RAILS_VITE_RB_INITIALIZER = File.join(RAILS_TEST_APP, "config", "initializers", "vite_rb.rb")
 RAILS_CONFIG_DIR = File.join(RAILS_TEST_APP, "config", "vite_rb")
 RAILS_BUILD_DIR = File.join(RAILS_TEST_APP, "public", "dist")
 

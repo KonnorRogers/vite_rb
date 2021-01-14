@@ -17,11 +17,11 @@ module ViteRb
     end
 
     def create_initializer_file
-      source = "vite.rb"
+      source = "vite_rb.rb"
 
       destination = find_destination
 
-      # Creates a config/initializers/vite.rb file
+      # Creates a config/initializers/vite_rb.rb file
       say "\n\nCreating initializer file at #{destination}...\n\n", :magenta
       template source, destination
     end

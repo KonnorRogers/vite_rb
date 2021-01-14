@@ -190,7 +190,7 @@ your document:
 ## Configuration
 
 After running generator, the configuration file can be found in
-`config/initializers/vite.rb`
+`config/initializers/vite_rb.rb`
 
 In addition, all related `vite.config.js`, and
 `postcss.config.js` can all be found in the `config/vite`
