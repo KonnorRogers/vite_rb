@@ -20,11 +20,7 @@ module ViteRb
       target = "vite.rb"
       source = "#{target}.tt"
 
-      destination = File.join("config/initializers", target)
-
-      if Utils.rails?
-        destination = Rails.root.join("config/initializers", target)
-      end
+      destination = find_destination
 
       # Creates a config/initializers/vite.rb file
       say "\n\nCreating initializer file at #{destination}...\n\n", :magenta
@@ -32,12 +28,7 @@ module ViteRb
     end
 
     def create_config_files
-      destination = File.join("config/vite")
-
-      if Utils.rails?
-        destination = Rails.root.join("config/vite")
-      end
-
+      destination = find_destination
       Rake.mkdir_p destination
 
       say "\n\nCreating config files @ #{destination}...\n\n", :magenta
@@ -47,11 +38,8 @@ module ViteRb
     end
 
     def create_vite_files
-      destination = File.join("app/vite")
+      destination = find_destination
 
-      if Utils.rails?
-        destination = Rails.root.join("app/vite")
-      end
       say "\n\nCreating vite files...\n\n", :magenta
 
       directory "vite", destination
@@ -76,6 +64,16 @@ module ViteRb
 
     def self.init
       new.init
+    end
+
+    private
+
+    def find_destination
+      if Utils.rails?
+        Rails.root.join("config/initializers", target)
+      else
+        File.join("config/initializers", target)
+      end
     end
   end
 end

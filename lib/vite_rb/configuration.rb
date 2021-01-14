@@ -1,15 +1,21 @@
+# frozen_string_literal: true
+
 module ViteRb
+  # Configuration Object for ViteRb
   class Configuration
     attr_accessor :config_path,
-      :config_file,
-      :babel_config_file,
-      :postcss_config_file,
-      :build_dir,
-      :mount_path,
-      :manifest_file,
-      :output_dir,
-      :port,
-      :hostname
+                  :config_file,
+                  :root_dir,
+                  :build_dir,
+                  :entrypoints_dir,
+                  :base_url,
+                  :out_dir,
+                  :assets_dir,
+                  :host,
+                  :https,
+                  :port,
+                  :postcss_config_path,
+                  :manifest
 
     def initialize
       yield(self) if block_given?
@@ -23,7 +29,7 @@ module ViteRb
     #   ViteRb.config.fake_attr # => "stuff"
     def method_missing(method_name, *args, &block)
       # Check if the method missing an "attr=" method
-      raise unless method_name.to_s.end_with?("=")
+      raise unless method_name.to_s.end_with?('=')
 
       setter = method_name
       getter = method_name.to_s.slice(0...-1).to_sym
@@ -47,10 +53,8 @@ module ViteRb
       super(method_name, *args, &block)
     end
 
-    # rubocop:enable Style/MethodMissingSuper Metrics/MethodLength
-
     def respond_to_missing?(method_name, include_private = false)
-      method_name.to_s.end_with?("=") || super
+      method_name.to_s.end_with?('=') || super
     end
   end
 end

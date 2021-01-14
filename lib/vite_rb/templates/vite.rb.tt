@@ -7,7 +7,7 @@ ViteRb.configure do |vite|
   vite.build_dir = "public"
 
   # url to use for assets IE: /vite/xyz.css, gets built to public/frontend
-  vite.output_dir = "vite"
+  vite.out_dir = "vite"
 
   # Where to find the config directory
   <%- if defined?(Rails) -%>

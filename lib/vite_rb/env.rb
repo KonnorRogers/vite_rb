@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ViteR
+module ViteRb
   # Sets the appropriately prefixed ENV variables with VITE_RB
   class Env
     ENV_PREFIX = "VITE_RB"
