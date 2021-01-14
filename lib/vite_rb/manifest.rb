@@ -1,8 +1,10 @@
-require "json"
+# frozen_string_literal: true
+
+require 'json'
 
 module ViteRb
   module Manifest
-    VALID_TYPES = [:js, :"js.map", :css, :"css.map"]
+    VALID_TYPES = %i[js js.map css css.map].freeze
 
     class << self
       attr_accessor :manifest_hash

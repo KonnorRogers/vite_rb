@@ -1,14 +1,16 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class EnvTest < Minitest::Test
   def test_sets_env_vars_appropriately
     ViteRb.configure
-    ViteRb.config.hostname = "hostname"
+    ViteRb.config.hostname = 'hostname'
 
     # By default, only sets output_path, mount_dir, port, and hostname
     ViteRb::Env.create_env_variables(ViteRb.config)
 
-    assert_equal ViteRb.config.hostname, ENV["VITE_HOSTNAME"]
+    assert_equal ViteRb.config.hostname, ENV['VITE_HOSTNAME']
 
     ViteRb.config.hostname = nil
     ViteRb::Env.create_env_variables(ViteRb.config)

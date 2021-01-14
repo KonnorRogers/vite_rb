@@ -1,9 +1,11 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails/all"
+require_relative 'boot'
+
+require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "vite_rb"
+require 'vite_rb'
 
 module Dummy
   class Application < Rails::Application

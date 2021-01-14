@@ -1,5 +1,7 @@
-require "rails_helper"
-require "erb"
+# frozen_string_literal: true
+
+require 'rails_helper'
+require 'erb'
 
 class ViteRbGeneratorTest < Minitest::Test
   def setup
@@ -15,13 +17,13 @@ class ViteRbGeneratorTest < Minitest::Test
 
     output = Dir.chdir(RAILS_TEST_APP) { `rails vite:build` }
 
-    assert_match %r{Build Complete!}, output
+    assert_match(/Build Complete!/, output)
 
-    context = instance_eval("binding", __FILE__, __LINE__)
+    context = instance_eval('binding', __FILE__, __LINE__)
 
-    file = File.binread(File.join(TEMPLATE_DIR, "vite_rb.rb"))
-    trim_mode = "-"
-    eoutvar = "@output_buffer"
+    file = File.binread(File.join(TEMPLATE_DIR, 'vite_rb.rb'))
+    trim_mode = '-'
+    eoutvar = '@output_buffer'
 
     vite_file = ERB.new(file, trim_mode: trim_mode, eoutvar: eoutvar)
 

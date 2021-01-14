@@ -3,7 +3,7 @@
 module ViteRb
   # Sets the appropriately prefixed ENV variables with VITE_RB
   class Env
-    ENV_PREFIX = "VITE_RB"
+    ENV_PREFIX = 'VITE_RB'
 
     class << self
       def create_env_variables(config = ViteRb.config)

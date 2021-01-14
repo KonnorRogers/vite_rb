@@ -1,4 +1,6 @@
-require "rails"
-require "test_helper"
+# frozen_string_literal: true
 
-ENV["RAILS_ENV"] = "test"
+require 'rails'
+require 'test_helper'
+
+ENV['RAILS_ENV'] = 'test'

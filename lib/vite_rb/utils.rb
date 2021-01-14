@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ViteRb
   module Utils
     class << self
@@ -16,7 +18,7 @@ module ViteRb
       end
 
       def https?
-        ENV["VITE_RB_HTTPS"] == "true"
+        ENV['VITE_RB_HTTPS'] == 'true'
       end
 
       def dev_server_running?

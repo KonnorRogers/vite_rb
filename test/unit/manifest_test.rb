@@ -1,7 +1,9 @@
-require "test_helper"
-require "json"
+# frozen_string_literal: true
 
-MANIFEST_FILE = File.join(FIXTURE_DIR, "manifest.json")
+require 'test_helper'
+require 'json'
+
+MANIFEST_FILE = File.join(FIXTURE_DIR, 'manifest.json')
 MANIFEST_DATA = JSON.parse(File.read(MANIFEST_FILE), symbolize_names: true)
 
 class ManifestTest < Minitest::Test
@@ -29,17 +31,17 @@ class ManifestTest < Minitest::Test
     css = ViteRb::Manifest.find_entrypoint(:application, :css)
     css_map = ViteRb::Manifest.find_entrypoint(:application, :"css.map")
 
-    assert_equal js, "/entrypoints/application-9856bc23.js"
-    assert_equal js_map, "/entrypoints/application-9856bc23.js.map"
-    assert_equal css, "/css/application-4ceb08db.css"
-    assert_equal css_map, "/css/application-4ceb08db.css.map"
+    assert_equal js, '/entrypoints/application-9856bc23.js'
+    assert_equal js_map, '/entrypoints/application-9856bc23.js.map'
+    assert_equal css, '/css/application-4ceb08db.css'
+    assert_equal css_map, '/css/application-4ceb08db.css.map'
   end
 
   def test_find_file
-    app = ViteRb::Manifest.find_file("entrypoints/application.js")
-    assert_equal app, "/entrypoints/application-9856bc23.js"
+    app = ViteRb::Manifest.find_file('entrypoints/application.js')
+    assert_equal app, '/entrypoints/application-9856bc23.js'
 
-    non_existant = ViteRb::Manifest.find_file("does-not-exist")
+    non_existant = ViteRb::Manifest.find_file('does-not-exist')
     assert_nil non_existant
   end
 end

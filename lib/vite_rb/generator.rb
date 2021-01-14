@@ -1,12 +1,14 @@
-require "thor"
-require "vite_rb/utils"
+# frozen_string_literal: true
+
+require 'thor'
+require 'vite_rb/utils'
 
 module ViteRb
   class Generator < Thor::Group
     include Thor::Actions
     extend Utils
 
-    TEMPLATES = File.join(File.expand_path(__dir__), "templates")
+    TEMPLATES = File.join(File.expand_path(__dir__), 'templates')
     CONFIG_FILES = %w[
       vite.config.js
       postcss.config.js
@@ -17,7 +19,7 @@ module ViteRb
     end
 
     def create_initializer_file
-      source = "vite_rb.rb"
+      source = 'vite_rb.rb'
 
       destination = find_destination
 
@@ -41,7 +43,7 @@ module ViteRb
 
       say "\n\nCreating vite files...\n\n", :magenta
 
-      directory "vite", destination
+      directory 'vite', destination
     end
 
     def init
@@ -50,13 +52,13 @@ module ViteRb
       create_vite_files
       add_vite
 
-      say "Finished initializing vite", :green
+      say 'Finished initializing vite', :green
     end
 
     def add_vite
-      return system("yarn add vite_rb file:../../") if ENV["VITE_RB_TEST"] == "true"
+      return system('yarn add vite_rb file:../../') if ENV['VITE_RB_TEST'] == 'true'
 
-      system("yarn add vite_rb")
+      system('yarn add vite_rb')
     end
 
     def self.init
@@ -67,9 +69,9 @@ module ViteRb
 
     def find_destination
       if Utils.rails?
-        Rails.root.join("config/initializers", target)
+        Rails.root.join('config/initializers', target)
       else
-        File.join("config/initializers", target)
+        File.join('config/initializers', target)
       end
     end
   end
