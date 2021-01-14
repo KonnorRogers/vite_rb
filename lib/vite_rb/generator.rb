@@ -21,7 +21,7 @@ module ViteRb
     def create_initializer_file
       source = 'vite_rb.rb'
 
-      destination = find_destination
+      destination = find_destination("config/initializers")
 
       # Creates a config/initializers/vite_rb.rb file
       say "\n\nCreating initializer file at #{destination}...\n\n", :magenta
@@ -67,12 +67,10 @@ module ViteRb
 
     private
 
-    def find_destination
-      if Utils.rails?
-        Rails.root.join('config/initializers', target)
-      else
-        File.join('config/initializers', target)
-      end
+    def find_destination(*paths)
+      return Rails.root.join(*paths) if Utils.rails?
+
+      File.join(Dir.pwd, *paths)
     end
   end
 end
