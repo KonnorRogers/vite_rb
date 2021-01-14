@@ -28,10 +28,10 @@ class ViteRbGeneratorTest < Minitest::Test
     # Account for ERB argument deprecation from 2.5 -> 2.6
     # https://bugs.ruby-lang.org/issues/14256
 
-    if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("2.6.0")
-      vite_file = ERB.new(file, 0, trim_mode, eoutvar)
+    vite_file = if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("2.6.0")
+      ERB.new(file, trim_mode: trim_mode, eoutvar: eoutvar)
     else
-      vite_file = ERB.new(file, trim_mode: trim_mode, eoutvar: eoutvar)
+      ERB.new(file, trim_mode: trim_mode, eoutvar: eoutvar)
     end
 
     vite_file = vite_file.result(context)

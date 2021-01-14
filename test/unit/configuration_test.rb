@@ -1,4 +1,4 @@
-require "test_helper.rb"
+require "test_helper"
 
 class ConfigurationTest < Minitest::Test
   def test_initialize_without_error

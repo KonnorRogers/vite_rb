@@ -1,20 +1,19 @@
 module ViteRb
   class Configuration
     attr_accessor :config_path,
-                  :config_file,
-                  :babel_config_file,
-                  :postcss_config_file,
-                  :build_dir,
-                  :mount_path,
-                  :manifest_file,
-                  :output_dir,
-                  :port,
-                  :hostname
+      :config_file,
+      :babel_config_file,
+      :postcss_config_file,
+      :build_dir,
+      :mount_path,
+      :manifest_file,
+      :output_dir,
+      :port,
+      :hostname
 
     def initialize
       yield(self) if block_given?
     end
-
 
     # Allows dynamic definition of getters and setters
     # The setter must be the value used first.
