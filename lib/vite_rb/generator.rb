@@ -17,8 +17,7 @@ module ViteRb
     end
 
     def create_initializer_file
-      target = "vite.rb"
-      source = "#{target}.tt"
+      source = "vite.rb"
 
       destination = find_destination
 
@@ -55,9 +54,7 @@ module ViteRb
     end
 
     def add_vite
-      if ENV["VITE_RB_TEST"] == "true"
-        return system("yarn add vite_rb file:../../")
-      end
+      return system("yarn add vite_rb file:../../") if ENV["VITE_RB_TEST"] == "true"
 
       system("yarn add vite_rb")
     end
