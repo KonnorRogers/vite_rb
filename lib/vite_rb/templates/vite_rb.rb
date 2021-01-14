@@ -3,44 +3,34 @@ Rails.application.config.middleware.insert_before 0, ViteRb::Proxy, {ssl_verify_
 <%- end -%>
 
 ViteRb.configure do |vite|
-  # Where to build vite to (out dir)
-  vite.build_dir = "public"
-
-  # url to use for assets IE: /vite/xyz.css, gets built to public/frontend
-  vite.out_dir = "vite"
-
-  # Where to find the config directory
+  # Root of the project
   <%- if defined?(Rails) -%>
-  vite.config_path = Rails.root.join("config", "vite")
-  vite.mount_path = Rails.root.join("app", "vite")
-  vite.manifest_file = Rails.root.join(vite.build_dir, vite.output_dir, "manifest.json")
+    vite.root = Rails.root
   <%- else -%>
-  vite.config_path = File.join("config", "vite")
-  vite.mount_path = File.join("app", "vite")
-  vite.manifest_file = File.join(vite.build_dir, vite.output_dir, "manifest.json")
+    vite.root = Dir.pwd
   <%- end -%>
 
-  # Where to find the snowpack config file
-  vite.config_file = File.join(vite.config_path, "snowpack.config.js")
+  # Where to build your files to
+  vite.out_dir = File.join(vite.root_dir, "public")
 
-  # Where to find the babel config file
-  vite.babel_config_file = File.join(vite.config_path, "babel.config.js")
+  # Where non-js files will go
+  vite.assets_dir = "assets"
 
-  # Where to find the postcss config file
-  vite.postcss_config_file = File.join(vite.config_path, "postcss.config.js")
+  # Base public path when served in production. Note the path should start and end with /
+  vite.base = "/"
 
-  # Where to find your snowpack files
-  vite.entrypoints_dir = "entrypoints"
-
-  # What port to run vite with
+  vite.host = "localhost"
   vite.port = "4035"
 
-  # What hostname to use
-  vite.hostname = "localhost"
+  # Generates a manifest of your hashed files for production
+  vite.manifest = true
 
-  # Whether or not to use https
-  # https://www.snowpack.dev/#https%2Fhttp2
-  vite.https = false
+  # Non-vite config options (not directly sent to vite.config.js
+
+  # Entrypoint files (like packs)
+  vite.entrypoints_dir = File.join(vite.root_dir, "app/vite/entrypoints")
+
+  vite.config_file = "vite.config.js"
 end
 
 <%- if defined?(Rails) -%>

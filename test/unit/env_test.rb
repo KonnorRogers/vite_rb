@@ -4,10 +4,7 @@ require 'test_helper'
 
 class EnvTest < Minitest::Test
   ENV_VARS = %w[
-    CONFIG_PATH
-    CONFIG_FILE
-    ROOT_DIR
-    BUILD_DIR
+    ROOT
     ENTRYPOINTS_DIR
     BASE_URL
     OUT_DIR
@@ -15,7 +12,6 @@ class EnvTest < Minitest::Test
     HOST
     HTTPS
     PORT
-    POSTCSS_CONFIG_PATH
     MANIFEST
   ].freeze
 

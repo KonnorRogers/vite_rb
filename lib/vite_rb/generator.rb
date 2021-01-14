@@ -21,7 +21,7 @@ module ViteRb
     def create_initializer_file
       source = 'vite_rb.rb'
 
-      destination = find_destination("config/initializers")
+      destination = find_destination('config/initializers')
 
       # Creates a config/initializers/vite_rb.rb file
       say "\n\nCreating initializer file at #{destination}...\n\n", :magenta
@@ -30,7 +30,6 @@ module ViteRb
 
     def create_config_files
       destination = find_destination
-      Rake.mkdir_p destination
 
       say "\n\nCreating config files @ #{destination}...\n\n", :magenta
       CONFIG_FILES.each do |filename|
@@ -39,7 +38,9 @@ module ViteRb
     end
 
     def create_vite_files
-      destination = find_destination
+      destination = find_destination('app/vite')
+
+      Rake.mkdir_p(destination)
 
       say "\n\nCreating vite files...\n\n", :magenta
 
