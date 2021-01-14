@@ -34,6 +34,4 @@ Rake::TestTask.new(:"test:unit") do |t|
   t.verbose = true
 end
 
-require 'standard/rake'
-
 task default: :test

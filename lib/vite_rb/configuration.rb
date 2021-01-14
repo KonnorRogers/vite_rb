@@ -3,21 +3,10 @@
 module ViteRb
   # Configuration Object for ViteRb
   class Configuration
-    attr_accessor :config_path,
-                  :config_file,
-                  :root_dir,
-                  :build_dir,
-                  :entrypoints_dir,
-                  :base_url,
-                  :out_dir,
-                  :assets_dir,
-                  :host,
-                  :https,
-                  :port,
-                  :postcss_config_path,
-                  :manifest
+    attr_reader :options
 
     def initialize
+      @options = {}
       yield(self) if block_given?
     end
 
@@ -28,33 +17,23 @@ module ViteRb
     #   ViteRb.config.fake_attr = "stuff"
     #   ViteRb.config.fake_attr # => "stuff"
     def method_missing(method_name, *args, &block)
+      method_string = method_name.to_s
+
+      key = method_string.slice(0...-1).to_sym
+
       # Check if the method missing an "attr=" method
-      raise unless method_name.to_s.end_with?('=')
+      return @options[method_name.to_sym] unless method_string.end_with?("=")
 
-      setter = method_name
-      getter = method_name.to_s.slice(0...-1).to_sym
-      instance_var = "@#{getter}".to_sym
-
-      # attr_writer
-      define_singleton_method(setter) do |new_val|
-        instance_variable_set(instance_var, new_val)
-      end
-
-      # attr_reader
-      define_singleton_method(getter) { instance_variable_get(instance_var) }
-
-      # Ignores all arguments but the first one
-      value = args[0]
-
-      # Actually sets the value on the instance variable
-      send(setter, value)
+      @options[key] = args[0]
     rescue MethodMissing
       # Raise error as normal, nothing to see here
       super(method_name, *args, &block)
     end
 
+    # rubocop:enable Style/MethodMissingSuper Metrics/MethodLength
+
     def respond_to_missing?(method_name, include_private = false)
-      method_name.to_s.end_with?('=') || super
+      method_name.to_s.end_with?("=") || super
     end
   end
 end
