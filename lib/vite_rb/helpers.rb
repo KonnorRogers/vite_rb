@@ -18,10 +18,10 @@ module ViteRb
 
     # The location of a given +name+ entrypoint
     def vite_entrypoint_file(name)
-      return "/#{out_dir}/#{entrypoints_dir}/#{name}" if Utils.dev_server_running? || ViteRb.config.manifest == 'false'
+      return "#{out_dir}/#{entrypoints_dir}/#{name}" if Utils.dev_server_running? || ViteRb.config.manifest == 'false'
 
       # @TODO Turn to a readable file from the manifest hash
-      "/#{out_dir}/#{entrypoints_dir}/#{name}"
+      "#{out_dir}/#{entrypoints_dir}/#{name}"
     end
 
     # Location of vite assets

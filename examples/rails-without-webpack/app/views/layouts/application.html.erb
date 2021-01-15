@@ -5,8 +5,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= javascript_vite_tag "application" %>
-    <%= vite_hmr_tag %>
+    <%# <%= javascript_vite_tag "application" %1> %>
+    <%# <%= vite_hmr_tag %1> %>
+
+    <%= tag.script src: "http://localhost:4035/@vite/client", type: 'module' %>
+    <%= tag.script src: "http://localhost:4035/entrypoints/application.js", type: 'module' %>
+
   </head>
 
   <body>
