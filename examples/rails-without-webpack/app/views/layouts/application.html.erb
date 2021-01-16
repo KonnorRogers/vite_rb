@@ -8,9 +8,8 @@
     <%# <%= javascript_vite_tag "application" %1> %>
     <%# <%= vite_hmr_tag %1> %>
 
-    <%= tag.script src: "http://localhost:4035/@vite/client", type: 'module' %>
-    <%= tag.script src: "http://localhost:4035/entrypoints/application.js", type: 'module' %>
-
+    <%= tag.script(src: "http://localhost:4035/@vite/client", type: 'module').html_safe %>
+    <%= tag.script(src: "http://localhost:4035/entrypoints/application.js", type: 'module').html_safe %>
   </head>
 
   <body>

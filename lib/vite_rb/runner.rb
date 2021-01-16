@@ -32,7 +32,9 @@ module ViteRb
       def dev
         Utils.detect_port!
         new
-        vite_rb_command(env: :development, cmd: :dev)
+
+        # vite is run as `vite`
+        vite_rb_command(env: :development)
       end
 
       private
