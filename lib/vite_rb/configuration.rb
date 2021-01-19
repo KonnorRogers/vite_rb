@@ -22,7 +22,7 @@ module ViteRb
       key = method_string.slice(0...-1).to_sym
 
       # Check if the method missing an "attr=" method
-      return @options[method_name.to_sym] unless method_string.end_with?("=")
+      return @options[method_name.to_sym] unless method_string.end_with?('=')
 
       @options[key] = args[0]
     rescue MethodMissing
@@ -30,10 +30,8 @@ module ViteRb
       super(method_name, *args, &block)
     end
 
-    # rubocop:enable Style/MethodMissingSuper Metrics/MethodLength
-
     def respond_to_missing?(method_name, include_private = false)
-      method_name.to_s.end_with?("=") || super
+      method_name.to_s.end_with?('=') || super
     end
   end
 end

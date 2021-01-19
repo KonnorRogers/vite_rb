@@ -4,6 +4,7 @@ require 'thor'
 require 'vite_rb/utils'
 
 module ViteRb
+  # The generator for ViteRb for templates
   class Generator < Thor::Group
     include Thor::Actions
     extend Utils

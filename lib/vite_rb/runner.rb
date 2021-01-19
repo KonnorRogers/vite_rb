@@ -6,6 +6,7 @@ require 'vite_rb/utils'
 require 'thor'
 
 module ViteRb
+  # Rails runner. This should be moved elsewhere
   class Runner < Thor::Group
     include ::Thor::Actions
 
