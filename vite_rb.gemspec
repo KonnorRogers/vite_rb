@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rails', '~> 6.0'
   spec.add_development_dependency 'reek'
   spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop-minitest'
   spec.add_development_dependency 'tzinfo-data'
   spec.add_development_dependency 'yard', '~> 0.9'
 end

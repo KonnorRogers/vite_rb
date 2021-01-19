@@ -1,0 +1,5 @@
+exclude_paths:
+  - lib/vite_rb/templates
+  - node_modules
+  - examples
+  - test

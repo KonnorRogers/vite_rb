@@ -7,12 +7,13 @@ require 'vite_rb/utils'
 module ViteRb
   # Proxy server for Vite
   class Proxy < Rack::Proxy
-    # :reek:FeatureEnvy
+    #:reek:FeatureEnvy
     def initialize(app = nil, opts = {})
       opts[:streaming] = false if Rails.env.test? && !opts.key?(:streaming)
       super
     end
 
+    #:reek:InstanceVariableAssumption
     def perform_request(env)
       out_dir = %r{/#{ViteRb.config.proxy_url}/}
 

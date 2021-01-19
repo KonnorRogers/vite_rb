@@ -5,13 +5,15 @@ require 'vite_rb/utils'
 module ViteRb
   # Helper methods for HTML tags
   module Helpers
+    TagParams = Struct(:name, :opts)
+
     # Injects an HMR tag during development via a websocket.
     def vite_hmr_tag
-      return unless ENV['VITE_RB_MODE'] == 'development'
+      return unless Env.development?
 
       hmr = "#{Utils.host_with_port}/@vite/client"
 
-      return tag.script(hmr.html_safe) if Utils.rails?
+      return tag.script(hmr.html_safe) if defined?(Rails)
 
       hmr
     end
@@ -28,7 +30,7 @@ module ViteRb
     def vite_asset_path(name, options = {})
       path = File.join(out_dir, name)
 
-      return path unless Utils.rails?
+      return path unless defined?(Rails)
 
       asset_path(path, options)
     end

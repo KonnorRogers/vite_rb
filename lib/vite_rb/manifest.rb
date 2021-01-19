@@ -3,39 +3,40 @@
 require 'json'
 
 module ViteRb
-  module Manifest
+  # The basic class for reading from the manifest.json
+  class Manifest
     VALID_TYPES = %i[js js.map css css.map].freeze
 
-    class << self
-      attr_accessor :manifest_hash
+    attr_reader :hash
 
-      def reload_manifest(manifest_file = ViteRb.config.manifest_file)
-        @manifest_hash = load_manifest(manifest_file)
-      end
+    def initialize(file)
+      @hash = load_manifest(file)
+    end
 
-      def find_entrypoint(file_name, type)
-        @manifest_hash[:entrypoints][file_name.to_sym][type.to_sym]
-      end
+    def reload(manifest_file = ViteRb.config.manifest_file)
+      @hash = load_manifest(manifest_file)
+    end
 
-      def find_file(file_name)
-        @manifest_hash[file_name.to_sym]
-      end
+    def find_entrypoint(file_name, type)
+      @hash[:entrypoints][file_name.to_sym][type.to_sym]
+    end
 
-      def find_chunk(chunk_name)
-        @manifest_hash[:chunks][chunk_name.to_sym][:js]
-      end
+    def find_file(file_name)
+      @hash[file_name.to_sym]
+    end
 
-      private
+    def find_chunk(chunk_name)
+      @hash[:chunks][chunk_name.to_sym][:js]
+    end
 
-      # rubocop:disable Naming/MemoizedInstanceVariableName
-      def load_manifest(manifest_file = ViteRb.config.manifest_file)
-        @manifest_hash ||= JSON.parse(File.read(manifest_file), symbolize_names: true)
-      end
-      # rubocop:enable Naming/MemoizedInstanceVariableName
+    def self.valid_type?(type)
+      VALID_TYPES.include?(type)
+    end
 
-      def valid_type?(type)
-        VALID_TYPES.include?(type)
-      end
+    private
+
+    def load_manifest(manifest_file = ViteRb.config.manifest_file)
+      @hash = JSON.parse(File.read(manifest_file), symbolize_names: true)
     end
   end
 end

@@ -25,17 +25,17 @@ class EnvTest < Minitest::Test
   def test_sets_env_vars_appropriately
     ViteRb.configure
 
-    str = "Yo"
-    ViteRb.config.host = str
-    ViteRb::Env.create_env_variables(ViteRb.config)
-
-    assert_equal ENV["VITE_RB_HOST"], "Yo"
-
     ENV_VARS.each do |var|
       assert_nil ENV["VITE_RB_#{var}"]
       assert_nil ViteRb.config.send(var)
       assert_nil ViteRb.config.send(var.to_sym)
     end
+
+    str = "Yo"
+    ViteRb.config.host = str
+    ViteRb::Env.create_env_variables(ViteRb.config)
+
+    assert_equal ENV["VITE_RB_HOST"], "Yo"
 
 
     ViteRb.config.hostname = nil

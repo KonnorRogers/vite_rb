@@ -17,7 +17,7 @@ class ViteRbGeneratorTest < Minitest::Test
 
     output = Dir.chdir(RAILS_TEST_APP) { `rails vite:build` }
 
-    assert_match(/Build Complete!/, output)
+    assert_match(/Done in/, output)
 
     context = instance_eval('binding', __FILE__, __LINE__)
 
@@ -28,12 +28,12 @@ class ViteRbGeneratorTest < Minitest::Test
     vite_file = ERB.new(file, trim_mode: trim_mode, eoutvar: eoutvar)
 
     vite_file = vite_file.result(context)
-    assert_equal File.read(RAILS_VITE_INITIALIZER), vite_file
+    assert_equal File.read(RAILS_VITE_RB_INITIALIZER), vite_file
 
     config_files = %w[vite.config.js postcss.config.js]
 
     config_files.each do |config_file|
-      test_file = File.read(File.join(RAILS_CONFIG_DIR, config_file))
+      test_file = File.read(File.join(RAILS_TEST_APP, config_file))
       config_file = File.read(File.join(TEMPLATE_DIR, config_file))
 
       assert_equal test_file, config_file

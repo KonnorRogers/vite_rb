@@ -15,7 +15,6 @@ module ViteRb
     def initialize
       super
       Env.create_env_variables
-      p ViteRb.config.options
     rescue Errno::ENOENT, NoMethodError
       $stdout.puts "Vite configuration not found at #{ViteRb.config.config_path}"
       $stdout.puts 'Please run bundle exec rails vite:init to install Vite'
@@ -31,7 +30,7 @@ module ViteRb
 
       # Serve for development
       def dev
-        Utils.detect_port!
+        DevServer.detect_port!
         new
 
         # vite is run as `vite`

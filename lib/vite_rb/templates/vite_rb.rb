@@ -11,7 +11,7 @@ ViteRb.configure do |vite|
   <%- end -%>
 
   # Where to build your files to
-  vite.out_dir = File.join(vite.root_dir, "public")
+  vite.out_dir = File.join(vite.root, "public")
 
   # Where non-js files will go
   vite.assets_dir = "assets"
@@ -28,7 +28,7 @@ ViteRb.configure do |vite|
   # Non-vite config options (not directly sent to vite.config.js
 
   # Entrypoint files (like packs)
-  vite.entrypoints_dir = File.join(vite.root_dir, "app/vite/entrypoints")
+  vite.entrypoints_dir = File.join(vite.root, "app/vite/entrypoints")
 
   vite.config_file = "vite.config.js"
 end

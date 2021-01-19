@@ -30,7 +30,7 @@ module ViteRb
       super(method_name, *args, &block)
     end
 
-    def respond_to_missing?(method_name, include_private = false)
+    def respond_to_missing?(method_name)
       method_name.to_s.end_with?('=') || super
     end
   end

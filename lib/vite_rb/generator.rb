@@ -22,7 +22,7 @@ module ViteRb
     def create_initializer_file
       source = 'vite_rb.rb'
 
-      destination = find_destination("config/initializers/#{source}")
+      destination = Generator.find_destination("config/initializers/#{source}")
 
       # Creates a config/initializers/vite_rb.rb file
       say "\n\nCreating initializer file at #{destination}...\n\n", :magenta
@@ -30,7 +30,7 @@ module ViteRb
     end
 
     def create_config_files
-      destination = find_destination
+      destination = Generator.find_destination
 
       say "\n\nCreating config files @ #{destination}...\n\n", :magenta
       CONFIG_FILES.each do |filename|
@@ -39,7 +39,7 @@ module ViteRb
     end
 
     def create_vite_files
-      destination = find_destination('app/vite')
+      destination = Generator.find_destination('app/vite')
 
       Rake.mkdir_p(destination)
 
@@ -58,6 +58,7 @@ module ViteRb
     end
 
     def add_vite
+      # This is used for local testing
       return system('yarn add vite_rb file:../../') if ENV['VITE_RB_TEST'] == 'true'
 
       system('yarn add vite_rb')
@@ -67,10 +68,8 @@ module ViteRb
       new.init
     end
 
-    private
-
-    def find_destination(*paths)
-      return Rails.root.join(*paths) if Utils.rails?
+    def self.find_destination(*paths)
+      return Rails.root.join(*paths) if defined?(Rails)
 
       File.join(Dir.pwd, *paths)
     end

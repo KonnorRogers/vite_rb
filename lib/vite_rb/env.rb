@@ -6,16 +6,37 @@ module ViteRb
     ENV_PREFIX = 'VITE_RB'
 
     class << self
+      def development?
+        current_mode == 'development'
+      end
+
+      def production?
+        current_mode == 'production'
+      end
+
+      def testing?
+        current_mode == 'testing'
+      end
+
       def create_env_variables(config = ViteRb.config)
-        config.options.each { |key, value| set_env(key, value) }
+        config.options.each do |key, value|
+          set_env(key, value)
+        end
       end
 
       private
 
-      def set_env(env_var, value)
-        return if value.nil?
+      def set_env(var, value)
+        env_var = current_env_var(var)
+        ENV[env_var] = ENV.fetch(env_var, value&.to_s)
+      end
 
-        ENV["#{ENV_PREFIX}_#{env_var.upcase}"] ||= value.to_s
+      def current_mode
+        current_env_var('MODE')
+      end
+
+      def current_env_var(var)
+        "#{ENV_PREFIX}_#{var.upcase}"
       end
     end
   end

@@ -7,15 +7,21 @@ require 'vite_rb/helpers'
 require 'vite_rb/proxy'
 require 'vite_rb/utils'
 require 'vite_rb/manifest'
+require 'vite_rb/dev_server'
 
 # ViteRb is the top-level module for interacting with the Vite ESM bundler.
 module ViteRb
   class << self
     attr_accessor :config
+    attr_writer :manifest
 
     def configure
       self.config ||= Configuration.new
       yield(config) if block_given?
+    end
+
+    def manifest
+      @manifest ||= Manifest.new(config.manifest_path)
     end
   end
 end
