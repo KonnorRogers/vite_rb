@@ -5,13 +5,13 @@ require 'vite_rb/utils'
 module ViteRb
   # Helper methods for HTML tags
   module Helpers
-    TagParams = Struct(:name, :opts)
-
-    # Injects an HMR tag during development via a websocket.
-    def vite_hmr_tag
+    def vite_hmr_path
       return unless Env.development?
 
-      hmr = "#{Utils.host_with_port}/@vite/client"
+      hmr = "#{DevServer.host_with_port}/@vite/client"
+    end
+    # Injects an HMR tag during development via a websocket.
+    def vite_hmr_tag
 
       return tag.script(hmr.html_safe) if defined?(Rails)
 

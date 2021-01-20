@@ -17,14 +17,8 @@ module ViteRB
         detect_port { exit! }
       end
 
-      private
-
-      def detect_port
-        server = TCPServer.new(DevServer.host, DevServer.port)
-        server.close
-      rescue Errno::EADDRINUSE
-        print_port_in_use(Utils.host_with_port)
-        yield
+      def host_with_port
+        "#{host}:#{port}"
       end
 
       def host
@@ -33,6 +27,16 @@ module ViteRB
 
       def port
         ViteRb.config.port
+      end
+
+      private
+
+      def detect_port
+        server = TCPServer.new(DevServer.host, DevServer.port)
+        server.close
+      rescue Errno::EADDRINUSE
+        print_port_in_use(host_with_port)
+        yield
       end
 
       def print_port_in_use(port)
