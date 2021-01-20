@@ -35,3 +35,11 @@ Rake::TestTask.new(:"test:unit") do |t|
 end
 
 task default: :test
+
+require 'reek/rake/task'
+
+Reek::Rake::Task.new do |t|
+  t.fail_on_error = true
+  t.verbose = false
+  t.source_files = 'lib/**/*.rb'
+end

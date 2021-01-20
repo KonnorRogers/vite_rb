@@ -8,14 +8,16 @@ module ViteRb
     def vite_hmr_path
       return unless Env.development?
 
-      hmr = "#{DevServer.host_with_port}/@vite/client"
+      "#{DevServer.host_with_port}/@vite/client"
     end
+
     # Injects an HMR tag during development via a websocket.
     def vite_hmr_tag
+      path = vite_hmr_path
 
-      return tag.script(hmr.html_safe) if defined?(Rails)
+      return tag.script(path.html_safe) if defined?(Rails)
 
-      hmr
+      path
     end
 
     # The location of a given +name+ entrypoint

@@ -3,3 +3,8 @@ exclude_paths:
   - node_modules
   - examples
   - test
+
+# InstanceVariableAssumption:
+  # enabled: false
+  # exclude:
+  #   - "ViteRb::Proxy#perform_request"
