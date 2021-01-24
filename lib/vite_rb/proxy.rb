@@ -15,9 +15,10 @@ module ViteRb
 
     # :reek:InstanceVariableAssumption
     def perform_request(env)
-      out_dir = %r{/#{ViteRb.config.proxy_url}/}
+      proxy_url = %r{/#{ViteRb.config.proxy_url}/}
 
       if env['PATH_INFO'].start_with?(out_dir) && DevServer.running?
+        env['PATH_INFO'].sub(proxy_url, '')
         Proxy.rewrite_host(env)
         Proxy.rewrite_headers(env)
         super(env)
