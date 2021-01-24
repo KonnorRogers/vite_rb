@@ -15,7 +15,7 @@ def remove_rails_vite_dirs
 end
 
 def rails_vite_init
-  Dir.chdir(RAILS_TEST_APP) { system(%(rails vite:init)) }
+  Dir.chdir(RAILS_TEST_APP) { `rails vite:init` }
 end
 
 Minitest.after_run { remove_rails_vite_dirs }

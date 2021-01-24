@@ -1,4 +1,4 @@
-import { resolve, relative } from 'path'
+import path from 'path'
 import process from "process";
 import fg from "fast-glob";
 
@@ -24,14 +24,12 @@ envVars.forEach((option) => {
   options[option] = process.env[`${PREFIX}_${option}`]
 })
 
-console.warn(options)
-
 const inputs = {}
 fg.sync(`${options.ENTRYPOINTS_DIR}/**/*`).forEach((entrypoint, index) => {
-  console.log(entrypoint)
-  const entrypointPath = resolve(__dirname, entrypoint)
-  const name = relative(__dirname, entrypoint)
-  inputs[name] = entrypointPath
+  const entrypointPath = path.resolve(__dirname, entrypoint)
+  const { dir, name } = path.parse(path.relative(options.ENTRYPOINTS_DIR, entrypoint))
+  const file = path.join(dir, name)
+  inputs[file] = entrypointPath
 })
 
 console.log(inputs)
@@ -107,7 +105,7 @@ export default {
     outDir: options.OUT_DIR,
     outDir: "../../public/dist",
     manifest: Boolean(options.MANIFEST),
-    sourceMap: "true",
+    sourcemap: true,
     target: "modules",
     assetsInlineLimit: 4096,
     cssCodeSplit: true,

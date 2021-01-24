@@ -16,4 +16,3 @@ RUBY_TEST_APP = File.join(TEST_DIR, 'ruby_test_app')
 
 ROOT_DIR = File.expand_path('..', __dir__)
 TEMPLATE_DIR = File.join(ROOT_DIR, 'lib', 'vite_rb', 'templates')
-

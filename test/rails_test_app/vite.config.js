@@ -1,4 +1,5 @@
-// import { path } from "path"
+import { resolve, relative } from "path"
+import fg from "fast-glob"
 import process from "process"
 
 const PREFIX = "VITE_RB"
@@ -21,6 +22,14 @@ const envVars = [
 
 envVars.forEach((option) => {
   options[option] = process.env[`${PREFIX}_${option}`]
+})
+
+const inputs = {}
+fg.sync(`${options.ENTRYPOINTS_DIR}/**/*`).forEach((entrypoint, index) => {
+  console.log(entrypoint)
+  const entrypointPath = resolve(__dirname, entrypoint)
+  const name = relative(__dirname, entrypoint)
+  inputs[name] = entrypointPath
 })
 
 console.warn(options)

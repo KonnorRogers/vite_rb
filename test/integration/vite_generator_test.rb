@@ -13,11 +13,9 @@ class ViteRbGeneratorTest < Minitest::Test
   end
 
   def test_generator_works
-    capture_subprocess_io { rails_vite_init }
+    rails_vite_init
 
-    output = Dir.chdir(RAILS_TEST_APP) { `rails vite:build` }
-
-    assert_match(/Done in/, output)
+    Dir.chdir(RAILS_TEST_APP) { `rails vite:build` }
 
     context = instance_eval('binding', __FILE__, __LINE__)
 
