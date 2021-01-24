@@ -32,8 +32,6 @@ fg.sync(`${options.ENTRYPOINTS_DIR}/**/*`).forEach((entrypoint, index) => {
   inputs[file] = entrypointPath
 })
 
-console.log(inputs)
-
 /**
  * type {import('vite').UserConfig}
  */
@@ -75,7 +73,7 @@ export default {
   // esbuild: {},
 
   // https://vitejs.dev/config/#assetsinclude
-  // assetsInclude: [],
+  assetsInclude: ["/"],
 
   // Force Vite to always resolve listed dependencies to the same copy
   // https://vitejs.dev/config/#dedupe

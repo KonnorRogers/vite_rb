@@ -9,3 +9,6 @@ Turbolinks.start()
 ActiveStorage.start()
 
 console.log("Hello from Vite")
+
+import "../images/check.svg"
+
