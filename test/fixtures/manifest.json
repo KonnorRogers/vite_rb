@@ -1,0 +1,20 @@
+{
+  "application.js": {
+    "file": "assets/application.50559cb7.js",
+    "imports": []
+  },
+  "entry_two.js": {
+    "file": "assets/entry_two.d8ce7aea.js",
+    "imports": []
+  },
+  "nested/nested_entrypoint.js": {
+    "file": "assets/nested/nested_entrypoint.088bf875.js",
+    "imports": []
+  },
+  "application.css": {
+    "file": "assets/application.4ceb08db.css"
+  },
+  "nested/nested_entrypoint.css": {
+    "file": "assets/entry_two.edeba5fc.css"
+  }
+}
