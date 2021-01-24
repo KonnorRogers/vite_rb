@@ -94,7 +94,6 @@ export default {
   build: {
     base: options.BASE,
     outDir: options.OUT_DIR,
-    outDir: "../../public/dist",
     manifest: Boolean(options.MANIFEST),
     sourceMap: "true",
     target: "modules",
