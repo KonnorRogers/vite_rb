@@ -1,19 +1,26 @@
+require "pathname"
+
 <%- if defined?(Rails) -%>
 Rails.application.config.middleware.insert_before 0, ViteRb::Proxy, {ssl_verify_none: true}
 <%- end -%>
 
 ViteRb.configure do |vite|
-  # Root of the project
+  # Top level of the project
+  # This will not be passed to your vite config
   <%- if defined?(Rails) -%>
-    vite.root = Rails.root
+    vite.top_level = Rails.root
   <%- else -%>
-    vite.root = Dir.pwd
+    vite.top_level = Pathname.new(Dir.pwd)
   <%- end -%>
 
+  # Root of all js files
+  vite.root = vite.top_level.join("app/vite")
+
   # Where to build your files to
-  vite.out_dir = File.join(vite.root, "public")
+  vite.out_dir = vite.top_level.join("public/dist").relative_path_from(vite.root)
 
   # Where non-js files will go
+  # Will be appended to your #{vite.out_dir}
   vite.assets_dir = "assets"
 
   # Base public path when served in production. Note the path should start and end with /
@@ -28,7 +35,7 @@ ViteRb.configure do |vite|
   # Non-vite config options (not directly sent to vite.config.js
 
   # Entrypoint files (like packs)
-  vite.entrypoints_dir = File.join(vite.root, "app/vite/entrypoints")
+  vite.entrypoints_dir = vite.root.join("entrypoints")
 
   vite.config_file = "vite.config.js"
 end

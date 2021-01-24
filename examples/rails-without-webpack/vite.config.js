@@ -1,5 +1,6 @@
-// import { path } from "path"
-import process from "process"
+import { resolve, relative } from 'path'
+import process from "process";
+import fg from "fast-glob";
 
 const PREFIX = "VITE_RB"
 
@@ -24,6 +25,16 @@ envVars.forEach((option) => {
 })
 
 console.warn(options)
+
+const inputs = {}
+fg.sync(`${options.ENTRYPOINTS_DIR}/**/*`).forEach((entrypoint, index) => {
+  console.log(entrypoint)
+  const entrypointPath = resolve(__dirname, entrypoint)
+  const name = relative(__dirname, entrypoint)
+  inputs[name] = entrypointPath
+})
+
+console.log(inputs)
 
 /**
  * type {import('vite').UserConfig}
@@ -94,13 +105,14 @@ export default {
   build: {
     base: options.BASE,
     outDir: options.OUT_DIR,
+    outDir: "../../public/dist",
     manifest: Boolean(options.MANIFEST),
     sourceMap: "true",
     target: "modules",
     assetsInlineLimit: 4096,
     cssCodeSplit: true,
     rollupOptions: {
-      input: './app/vite/entrypoints/application.js'
+      input: inputs,
     },
     minify: "terser",
     write: true,
