@@ -10,5 +10,7 @@ ActiveStorage.start()
 
 console.log("Hello from Vite")
 
+// const images = import.meta.globEager("../images/**/*");
 import "../images/check.svg"
+import "../images/nested/check.svg"
 
